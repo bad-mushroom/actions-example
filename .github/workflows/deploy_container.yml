@@ -1,9 +1,9 @@
-name: AUTO DEPLOY CONTAINER
+name: PUSH CONTAINER TO DOCKER HUB
 
 env:
    DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
    DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-   REPOSITORY_NAME: actions-example
+   DOCKER_HUB_REPOSITORY: actions-example
 
 on:
   push:
@@ -21,6 +21,6 @@ jobs:
       - name: Login to Docker
         run: docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
       - name: Build Image
-        run: docker build -t $DOCKER_HUB_USERNAME/$REPOSITORY_NAME:$IMAGE_TAG .
+        run: docker build -t $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORY:$IMAGE_TAG .
       - name: Push Image
-        run: docker push $DOCKER_HUB_USERNAME/$REPOSITORY_NAME:$IMAGE_TAG
+        run: docker push $DOCKER_HUB_USERNAME/$DOCKER_HUB_REPOSITORY:$IMAGE_TAG
